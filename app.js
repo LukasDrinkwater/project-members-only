@@ -4,11 +4,25 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const mongoose = require("mongoose");
 
+// ROUTES
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
+const { mongo } = require("mongoose");
+
 var app = express();
+
+// setup the mongoose mongoDB connection
+
+mongoose.set("strictQuery", false);
+const mongoDB = process.env.MONGODB_STRING;
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,6 +34,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+console.log(mongoose.connection.readyState);
+
+// middleware stack to use the correct routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
@@ -40,4 +57,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-e;

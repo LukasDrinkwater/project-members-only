@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+
+  div(class="sign-up-form")
+    form(method="POST" action="")
+      div(class="form-group")
+        label( for="username") Username
+        input(  type="text" name="username" placeholder="Username")
+      div(class="form-group")
+        label( for="password") Password
+        input(  type="password" name="password" placeholder="Password")
+      div(class="form-group")
+        label( for="confirmPassword") Confirm Password
+        input( type="password" name="confirmPassword" placeholder="Confirm password")
+      button( type="submit") Sign up

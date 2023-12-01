@@ -1,0 +1,8 @@
+extends layout 
+
+block content 
+
+  div(class="message-list")
+    each message in message_list
+      div(class="message-container")
+      p #{message.user.fullName}: #{message.message}

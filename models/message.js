@@ -1,0 +1,26 @@
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
+
+// timestand lets you use .createdAt and .updatedAt on the Schema variable
+// when getting it from the db
+
+// let doc = await User.create({ name: 'test' });
+// console.log(doc.createdAt); // 2022-02-26T16:37:48.244Z
+// console.log(doc.updatedAt); // 2022-02-26T16:37:48.244Z
+
+const MessageSchema = new Schema(
+  {
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    message: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+
+// virtuals
+
+MessageSchema.virtual("timestamp").get(function () {
+  // some code to return a formatted date time
+});
+
+module.exports = mongoose.model("Message", MessageSchema);
