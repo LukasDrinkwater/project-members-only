@@ -14,3 +14,8 @@ block content
         label( for="confirmPassword") Confirm Password
         input( type="password" name="confirmPassword" placeholder="Confirm password")
       button( type="submit") Sign up
+
+  if errors 
+    ul 
+      for error in errors 
+        li!= error.msg

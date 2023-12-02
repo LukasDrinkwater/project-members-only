@@ -31,19 +31,27 @@ exports.user_sign_up_post = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    console.log("here");
 
-    // make new user
-    const newUser = new User({
-      first_name: "1",
-      last_name: "1",
-      username: req.body.username,
-      password: req.body.password,
-      membership: true,
-    });
+    if (!errrors.isEmpyty()) {
+      res.render("sign_up", {
+        errors: errors,
+      });
+      return;
+    } else {
+      console.log("here");
 
-    await newUser.save();
+      // make new user
+      const newUser = new User({
+        first_name: "1",
+        last_name: "1",
+        username: req.body.username,
+        password: req.body.password,
+        membership: true,
+      });
 
-    res.redirect("message_board");
+      await newUser.save();
+
+      res.redirect("/messages");
+    }
   }),
 ];
