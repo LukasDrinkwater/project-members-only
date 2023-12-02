@@ -4,7 +4,6 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const mongoose = require("mongoose");
 
 // ROUTES
 var indexRouter = require("./routes/index");
@@ -15,7 +14,7 @@ const { mongo } = require("mongoose");
 var app = express();
 
 // setup the mongoose mongoDB connection
-
+const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = process.env.MONGODB_STRING;
 
