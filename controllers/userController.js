@@ -35,7 +35,7 @@ exports.user_sign_up_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpyty()) {
+    if (!errors.isEmpty()) {
       res.render("sign_up", {
         errors: errors,
       });
