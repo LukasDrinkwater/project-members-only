@@ -4,6 +4,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const flash = require("express-flash");
+const session = require("express-session");
+const User = require("./models/user");
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // ROUTES
 var indexRouter = require("./routes/index");
@@ -32,6 +41,50 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// passport.use(
+//   new LocalStrategy(async (username, password, done) => {
+//     try {
+//       const user = await User.findOne({ username: username });
+//       if (!user) {
+//         return done(null, false, { message: "Incorrect username" });
+//       }
+//       const match = await bycrpt.compare(password.user.password);
+//       if (!match) {
+//         // passwords dont match
+//         return done(null, false, { message: "Incorrect password" });
+//       }
+//       return done(null, user);
+//     } catch (error) {
+//       return done(error);
+//     }
+//   })
+// );
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  // return done(null, getUserById(id));
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 console.log(mongoose.connection.readyState);
 

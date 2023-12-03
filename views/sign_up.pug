@@ -5,14 +5,25 @@ block content
   div(class="sign-up-form")
     form(method="POST" action="")
       div(class="form-group")
+        label( for="firstName") First Name
+        input(  type="text" name="firstName" placeholder="First Name")
+      div(class="form-group")
+        label( for="lastName") Last Name
+        input(  type="text" name="lastName" placeholder="Last Name")
+      div(class="form-group")
         label( for="username") Username
-        input(  type="text" name="username" placeholder="Username")
+        input(  type="text" name="username" placeholder="Email")
       div(class="form-group")
         label( for="password") Password
         input(  type="password" name="password" placeholder="Password")
       div(class="form-group")
         label( for="confirmPassword") Confirm Password
         input( type="password" name="confirmPassword" placeholder="Confirm password")
+      div(class="form=group")
+        label( for="membership") Membership
+        select(type="select" placeholder="Select membership status" name="membership", required="true")
+          option(value="true") Yes
+          option(value="false") No
       button( type="submit") Sign up
 
   if errors 
