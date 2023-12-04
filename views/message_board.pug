@@ -5,4 +5,16 @@ block content
   div(class="message-list")
     each message in message_list
       div(class="message-container")
-      p #{message.user.fullName}: #{message.message}
+      p #{message.user.fullName}: #{message.message} - #{message.createdAt}
+
+  div(class="add-message")
+    form(method="POST" action="")
+      div(class="form-group")
+        label( for="message") Message: 
+        textarea(type="textarea" placeholder="Type message" name="message" required="true")
+      button(type="submit") Post message
+  
+  if errors
+    div(class="error-container")
+      each error in errors 
+        p #{error}

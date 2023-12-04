@@ -4,10 +4,13 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+
+// PASSPORT requirements
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const flash = require("express-flash");
 const session = require("express-session");
+const bycrpt = require("bcryptjs");
 const User = require("./models/user");
 
 if (process.env.NODE_ENV !== "production") {
@@ -50,24 +53,25 @@ app.use(
   })
 );
 
-// passport.use(
-//   new LocalStrategy(async (username, password, done) => {
-//     try {
-//       const user = await User.findOne({ username: username });
-//       if (!user) {
-//         return done(null, false, { message: "Incorrect username" });
-//       }
-//       const match = await bycrpt.compare(password.user.password);
-//       if (!match) {
-//         // passwords dont match
-//         return done(null, false, { message: "Incorrect password" });
-//       }
-//       return done(null, user);
-//     } catch (error) {
-//       return done(error);
-//     }
-//   })
-// );
+// PASSPORT SETUP
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      const match = await bycrpt.compare(password, user.password);
+      if (!match) {
+        // passwords dont match
+        return done(null, false, { message: "Incorrect password" });
+      }
+      return done(null, user);
+    } catch (error) {
+      return done(error);
+    }
+  })
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -83,8 +87,17 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+// PASSPORT MIDDLEWARE
 app.use(passport.initialize());
 app.use(passport.session());
+
+function checkAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect("/login");
+}
 
 console.log(mongoose.connection.readyState);
 

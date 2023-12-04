@@ -4,4 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+
+    form(action="/logout" method="POST")
+      div(class="form-group")
+        button(type="submit") Log out
+        
     block content
