@@ -6,7 +6,6 @@ const asyncHandler = require("express-async-handler");
 
 // User sign up GET
 exports.user_sign_up_get = asyncHandler(async (req, res, next) => {
-  console.log("here");
   res.render("sign_up");
 });
 
@@ -43,10 +42,7 @@ exports.user_sign_up_post = [
       return confirmPassword === req.body.password;
     })
     .escape(),
-  // body("membership")
-  //   .isBoolean()
-  //   .withMessage("Membership status must be selected")
-  //   .escape(),
+  body("admin").escape(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -57,8 +53,6 @@ exports.user_sign_up_post = [
       });
       return;
     } else {
-      console.log("here");
-
       // make new user
       const newUser = new User({
         first_name: req.body.firstName,
@@ -66,8 +60,8 @@ exports.user_sign_up_post = [
         username: req.body.username,
         password: req.body.password,
         membership: req.body.membership,
+        admin: req.body.admin,
       });
-      console.log("here");
 
       await newUser.save();
 

@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
   membership: { type: Boolean, required: true },
+  admin: { type: Boolean, required: true },
 });
 
 // middleware
@@ -24,20 +25,6 @@ UserSchema.pre("save", async function (next) {
     return next(error);
   }
 });
-
-// UserSchema.pre("save", async function (next) {
-//   if(!this.isModified("username")) return next();
-
-//   try{
-
-//   }
-// })
-
-// virtual for url etc
-
-// UserSchema.virtual("url").get(function () {
-//   return ``;
-// });
 
 UserSchema.virtual("fullName").get(function () {
   return `${this.first_name} ${this.last_name}`;

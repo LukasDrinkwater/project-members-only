@@ -5,6 +5,7 @@ var router = express.Router();
 const user_controller = require("../controllers/userController");
 const message_controller = require("../controllers/messageController");
 const login_controller = require("../controllers/loginController");
+const membership_controller = require("../controllers/membershipController");
 
 // HELPER FUNCTIONS
 const authentication = require("../strategies/authentication");
@@ -18,7 +19,7 @@ router.get("/", function (req, res, next) {
 
 router.get(
   "/sign-up",
-  authentication.checkAuthenticated,
+  // authentication.checkAuthenticated,
   user_controller.user_sign_up_get
 );
 
@@ -47,9 +48,15 @@ router.post("/logout", login_controller.user_logout_delete);
 router.get(
   "/messages",
   authentication.checkAuthenticated,
+  authentication.checkMembership,
   message_controller.message_list
 );
 
 router.post("/messages", message_controller.message_add_post);
+
+// MEMBERSHIP ROUTES
+router.get("/membership", membership_controller.membership_get);
+
+router.post("/membership", membership_controller.membership_post);
 
 module.exports = router;

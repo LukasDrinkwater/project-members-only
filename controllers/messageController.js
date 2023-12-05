@@ -1,19 +1,21 @@
 const Message = require("../models/message");
+const User = require("../models/user");
 
 const { body, validationResult } = require("express-validator");
 
 const asyncHandler = require("express-async-handler");
 
 exports.message_list = asyncHandler(async (req, res, next) => {
-  const allMessages = await Message.find()
-    .populate("user")
-    .sort({ createdAt: 1 })
-    .exec();
+  const [allMessages, user] = await Promise.all([
+    Message.find().populate("user").sort({ createdAt: 1 }).exec(),
+    User.find({ username: req.user.username }).exec(),
+  ]);
 
-  console.log(req.user);
+  console.log(allMessages);
 
   res.render("message_board", {
     message_list: allMessages,
+    admin: user.admin,
   });
 });
 

@@ -6,6 +6,12 @@ block content
     each message in message_list
       div(class="message-container")
       p #{message.user.fullName}: #{message.message} - #{message.createdAt}
+      if admin 
+        div(class="form-group")
+          form(method="POST", action="")
+            input(type="hidden", name="messageid", required="true", value=_id)
+          button(type="submit") Delete message
+
 
   div(class="add-message")
     form(method="POST" action="")

@@ -39,7 +39,8 @@ async function userCreate(
   last_name,
   username,
   password,
-  membership
+  membership,
+  admin
 ) {
   const user = new User({
     first_name: first_name,
@@ -47,6 +48,7 @@ async function userCreate(
     username: username,
     password: password,
     membership: membership,
+    admin: admin,
   });
   await user.save();
   users[index] = user;
@@ -68,8 +70,8 @@ async function messageCreate(index, user, message) {
 async function createUsers() {
   console.log("Adding users");
   await Promise.all([
-    userCreate(0, "John", "Doe", "johndoe@email.com", "12345", true),
-    userCreate(1, "Jane", "Doe", "janedoe@email.com", "11111", false),
+    userCreate(0, "John", "Doe", "johndoe@email.com", "12345", true, true),
+    userCreate(1, "Jane", "Doe", "janedoe@email.com", "11111", false, false),
   ]);
 }
 
