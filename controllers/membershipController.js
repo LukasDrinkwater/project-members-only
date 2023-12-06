@@ -25,7 +25,7 @@ exports.membership_post = [
 
       await User.findOneAndUpdate(filter, update, options);
 
-      res.render("messages");
+      res.redirect("messages");
     }
   }),
 ];

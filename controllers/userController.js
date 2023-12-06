@@ -15,7 +15,6 @@ exports.user_sign_up_get = asyncHandler(async (req, res, next) => {
 
 // User sign up POST
 exports.user_sign_up_post = [
-  // console.log("here"),
   body("firstName", "You must have a first name")
     .trim()
     .isLength({ min: 1 })

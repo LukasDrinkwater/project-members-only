@@ -45,10 +45,12 @@ router.post("/logout", login_controller.user_logout_delete);
 
 // MESSAGE ROUTES
 
+router.post("/messages/delete", message_controller.message_delete_post);
+
 router.get(
   "/messages",
   authentication.checkAuthenticated,
-  authentication.checkMembership,
+  // authentication.checkMembership,
   message_controller.message_list
 );
 

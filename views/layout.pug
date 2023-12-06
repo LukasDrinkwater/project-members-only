@@ -4,11 +4,11 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-
-    form(action="/logout" method="POST")
-      div(class="form-group")
-        button(type="submit") Log out
-    
-    a(href="/") Home
-    a(href="/messages") Messages
-    block content
+    div(class="header")
+      form(action="/logout" method="POST")
+        div(class="form-group")
+          button( class="log-out-button" type="submit") Log out
+      
+      a(href="/") Home
+      a(href="/messages") Messages
+  block content

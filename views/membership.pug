@@ -8,12 +8,12 @@ block content
     h2 JOIN THE CLUB!
     p Guess the secret passcode and join the club! 
 
-  div(class="form-group")
-    form(method="POST" action="")
-      div(class="form-group")
-        label( for="passcode") Passcode
-        input(  type="text" name="passcode" placeholder="Secret passcode???" required="true")
-      button(type="submit") Submit guess
+    div(class="form-group")
+      form(method="POST" action="")
+        div(class="form-group")
+          label( for="passcode") Passcode
+          input(  type="text" name="passcode" placeholder="Secret passcode???" required="true")
+        button(type="submit") Submit guess
   
   if guess 
     h2 Guess again.

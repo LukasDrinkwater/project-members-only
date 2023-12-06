@@ -6,16 +6,15 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 exports.message_list = asyncHandler(async (req, res, next) => {
-  const [allMessages, user] = await Promise.all([
+  const [allMessages, currentUser] = await Promise.all([
     Message.find().populate("user").sort({ createdAt: 1 }).exec(),
-    User.find({ username: req.user.username }).exec(),
+    User.findOne({ username: req.user.username }).exec(),
   ]);
-
-  console.log(allMessages);
 
   res.render("message_board", {
     message_list: allMessages,
-    admin: user.admin,
+    admin: currentUser.admin,
+    isMember: currentUser.membership,
   });
 });
 
@@ -49,3 +48,9 @@ exports.message_add_post = [
     }
   }),
 ];
+
+exports.message_delete_post = asyncHandler(async (req, res, next) => {
+  console.log("mesagecont", "here");
+  await Message.findByIdAndRemove(req.body.messageid);
+  res.redirect("/messages");
+});

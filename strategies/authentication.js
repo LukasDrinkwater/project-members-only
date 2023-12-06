@@ -14,7 +14,6 @@ exports.checkNotAuthenticated = (req, res, next) => {
 };
 
 exports.checkMembership = (req, res, next) => {
-  console.log(req.user.membership);
   if (req.user.membership === false) {
     return res.redirect("/membership");
   }
