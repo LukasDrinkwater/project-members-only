@@ -6,7 +6,7 @@ block content
     each message in message_list
       div(class="message-container")
         if isMember
-          p #{message.user.fullName}: #{message.message} - #{message.createdAt}
+          p #{message.user.fullName}: #{message.message} - #{message.createdAtFormatted}
         else
           p #{message.message}
         if admin 

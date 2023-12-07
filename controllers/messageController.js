@@ -11,6 +11,8 @@ exports.message_list = asyncHandler(async (req, res, next) => {
     User.findOne({ username: req.user.username }).exec(),
   ]);
 
+  // console.log(allMessages[0].createdAt);
+
   res.render("message_board", {
     message_list: allMessages,
     admin: currentUser.admin,

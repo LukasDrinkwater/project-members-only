@@ -19,8 +19,22 @@ const MessageSchema = new Schema(
 
 // virtuals
 
-MessageSchema.virtual("timestamp").get(function () {
-  // some code to return a formatted date time
+MessageSchema.virtual("createdAtFormatted").get(function () {
+  const createdAt = this.createdAt;
+
+  // Format the createdAt timestamp using toLocaleString
+  const formattedCreatedAt = createdAt.toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
+  });
+
+  return formattedCreatedAt;
 });
 
 module.exports = mongoose.model("Message", MessageSchema);

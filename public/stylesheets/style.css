@@ -205,8 +205,12 @@ a {
 
 .message-container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+}
+
+.message-container .form-group {
+  margin-left: 10px;
 }
 
 .delete-button {
