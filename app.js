@@ -105,7 +105,8 @@ console.log(mongoose.connection.readyState);
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self' https://project-members-only.adaptable.app"
+    "default-src 'self' https://project-members-only.adaptable.app",
+    "img-src 'self' data: https://project-members-only.adaptable.app"
   );
   next();
 });
