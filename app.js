@@ -101,6 +101,15 @@ function checkAuth(req, res, next) {
 
 console.log(mongoose.connection.readyState);
 
+// middleware to set Content-Security-Policy header
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' https://project-members-only.adaptable.app"
+  );
+  next();
+});
+
 // middleware stack to use the correct routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
