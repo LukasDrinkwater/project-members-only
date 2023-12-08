@@ -9,7 +9,7 @@ const favicon = require("serve-favicon");
 // PASSPORT requirements
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const flash = require("express-flash");
+// const flash = require("express-flash");
 const session = require("express-session");
 const bycrpt = require("bcryptjs");
 const User = require("./models/user");
@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(flash());
+// app.use(flash());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
