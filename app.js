@@ -111,6 +111,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(favicon("/images/favicon.ico"));
+
 // middleware stack to use the correct routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
