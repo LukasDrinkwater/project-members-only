@@ -113,7 +113,7 @@ app.use((req, res, next) => {
     "Content-Security-Policy",
     "default-src 'self' https://project-members-only.adaptable.app; img-src 'self' data: https://project-members-only.adaptable.app"
   );
-  next();
+  return next();
 });
 
 // app.use(favicon("/images/favicon.ico"));
