@@ -113,8 +113,22 @@ app.use((req, res, next) => {
   //   "Content-Security-Policy",
   //   "default-src 'self' https://project-members-only.adaptable.app; img-src 'self' data: https://project-members-only.adaptable.app"
   // );
-  res.setHeader("Content-Security-Policy", "default-src 'self'");
-  return next();
+  // res.setHeader("Content-Security-Policy", "default-src 'self'");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self';" +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval';" +
+      "style-src 'self' 'unsafe-inline';" +
+      "img-src 'self';" +
+      "font-src 'self';" +
+      "connect-src 'self';" +
+      "object-src 'none';" +
+      "base-uri 'self';" +
+      "form-action 'self';" +
+      "frame-ancestors 'none';"
+  );
+  next();
+  next();
 });
 
 // app.use(favicon("/images/favicon.ico"));
