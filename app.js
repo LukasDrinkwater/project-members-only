@@ -109,10 +109,11 @@ app.use((req, res, next) => {
   //   "default-src 'self' https://project-members-only.adaptable.app",
   //   "img-src 'self' data: https://project-members-only.adaptable.app"
   // );
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self' https://project-members-only.adaptable.app; img-src 'self' data: https://project-members-only.adaptable.app"
-  );
+  // res.setHeader(
+  //   "Content-Security-Policy",
+  //   "default-src 'self' https://project-members-only.adaptable.app; img-src 'self' data: https://project-members-only.adaptable.app"
+  // );
+  res.setHeader("Content-Security-Policy", "default-src 'self'");
   return next();
 });
 
