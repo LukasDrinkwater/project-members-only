@@ -26,6 +26,8 @@ const { mongo } = require("mongoose");
 
 var app = express();
 
+// mongodb+srv://username:password@cluster0.5xartib.mongodb.net/collectionName?retryWrites=true&w=majority
+
 // setup the mongoose mongoDB connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -48,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(flash());
 app.use(
   session({
+    // SESSION_SECRET is just a word that needs to defined in .env
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -101,34 +104,6 @@ function checkAuth(req, res, next) {
 }
 
 console.log(mongoose.connection.readyState);
-
-// middleware to set Content-Security-Policy header
-// app.use((req, res, next) => {
-//   // res.setHeader(
-//   //   "Content-Security-Policy",
-//   //   "default-src 'self' https://project-members-only.adaptable.app",
-//   //   "img-src 'self' data: https://project-members-only.adaptable.app"
-//   // );
-//   // res.setHeader(
-//   //   "Content-Security-Policy",
-//   //   "default-src 'self' https://project-members-only.adaptable.app; img-src 'self' data: https://project-members-only.adaptable.app"
-//   // );
-//   // res.setHeader("Content-Security-Policy", "default-src 'self'");
-//   res.setHeader(
-//     "Content-Security-Policy",
-//     "default-src 'self';" +
-//       "script-src 'self' 'unsafe-inline' 'unsafe-eval';" +
-//       "style-src 'self' 'unsafe-inline';" +
-//       "img-src 'self';" +
-//       "font-src 'self';" +
-//       "connect-src 'self';" +
-//       "object-src 'none';" +
-//       "base-uri 'self';" +
-//       "form-action 'self';" +
-//       "frame-ancestors 'none';"
-//   );
-//   next();
-// });
 
 // app.use(favicon("/images/favicon.ico"));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
